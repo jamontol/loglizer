@@ -14,8 +14,9 @@ import re
 from collections import Counter
 from scipy.special import expit
 from itertools import compress
-from torch.utils.data import DataLoader, Dataset
+#from torch.utils.data import DataLoader, Dataset
 
+'''
 class Iterator(Dataset):
     def __init__(self, data_dict, batch_size=32, shuffle=False, num_workers=1):
         self.data_dict = data_dict
@@ -27,6 +28,7 @@ class Iterator(Dataset):
 
     def __len__(self):
         return self.data_dict["SessionId"].shape[0]
+'''
 
 class Vectorizer(object):
 

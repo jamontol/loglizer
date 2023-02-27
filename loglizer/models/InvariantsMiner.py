@@ -14,6 +14,7 @@ Reference:
 import numpy as np
 from itertools import combinations
 from ..utils import metrics
+from tqdm import tqdm
 
 class InvariantsMiner(object):
 
@@ -260,10 +261,10 @@ class InvariantsMiner(object):
         -------
             return_list: list of items of length-element
         """
-
+        
         set_len = len(item_list)
         return_list = []
-        for i in range(set_len):
+        for i in tqdm(range(set_len)):
             for j in range(i + 1, set_len):
                 i_set = set(item_list[i])
                 j_set = set(item_list[j])
@@ -273,6 +274,26 @@ class InvariantsMiner(object):
                         return_list.append(joined)
         return_list = sorted(return_list)
         return return_list
+
+        '''
+        import numpy as np
+
+        item_list = np.array(item_list)
+        set_len = item_list.shape[0]
+        return_list = []
+        for i in tqdm(np.arange(set_len)):
+            for j in np.arange(i + 1, set_len):
+                i_set = np.unique(item_list[i])
+                j_set = np.unique(item_list[j])
+                if np.union1d(i_set, j_set).shape[0] == length:
+                    joined = sorted(np.union1d(i_set, j_set))
+                    if not any((joined == np.array(x)).all() for x in return_list):
+                        return_list.append(joined)
+            return_list = sorted(return_list)
+
+        return return_list
+
+        '''
 
 
     def _check_candi_valid(self, item, length, search_space):
